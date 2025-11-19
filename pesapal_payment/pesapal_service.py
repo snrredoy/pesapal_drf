@@ -113,7 +113,7 @@ def submit_order(merchant_reference, amount, email, phone, description, notifica
     logger.info("Pesapal submit_order response: %s", resp)
 
     # Pesapal sandbox may return checkout URL in different keys
-    checkout_url = resp.get("checkout_url") or resp.get("payment_url") or resp.get("url")
+    checkout_url = checkout_url = resp.get("checkout_url") or resp.get("payment_url") or resp.get("url") or resp.get("redirect_url")
     if not checkout_url and resp.get("error"):
         logger.error("Pesapal returned error: %s", resp["error"])
 
