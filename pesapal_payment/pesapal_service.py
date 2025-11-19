@@ -119,3 +119,33 @@ def submit_order(merchant_reference, amount, email, phone, description, notifica
 
     resp["checkout_url"] = checkout_url  # add a uniform key
     return resp
+
+
+def submit_order_recurring(merchant_reference, amount, email, phone, description, notification_id, account_number, frequency, start_date, end_date):
+    token = get_access_token()
+    url = f"{BASE_URL}/api/Transactions/SubmitOrderRequest"
+    headers = {"Authorization": f"Bearer {token}"}
+    payload = {
+        "id": merchant_reference,
+        "amount": float(amount),
+        "currency": "KES",
+        "description": description,
+        "callback_url": settings.PESAPAL_CALLBACK_URL,
+        "notification_id": notification_id,
+        "billing_address": {
+            "email_address": email,
+            "phone_number": phone,
+            "country_code": "KE",
+            "first_name": "Customer",
+            "last_name": "User"
+        },
+        "account_number": account_number,
+        "subscription_details": {
+            "start_date": start_date,  # format "dd-MM-yyyy"
+            "end_date": end_date,
+            "frequency": frequency  # DAILY / WEEKLY / MONTHLY
+        }
+    }
+    r = requests.post(url, json=payload, headers=headers, timeout=20)
+    r.raise_for_status()
+    return r.json()

@@ -19,6 +19,9 @@ class Subscription(models.Model):
     start_at = models.DateTimeField()
     end_at = models.DateTimeField()
     active = models.BooleanField(default=True)
+    pesapal_correlation_id = models.CharField(max_length=255, blank=True, null=True)  # new
+    frequency = models.CharField(max_length=20, blank=True, null=True)  # DAILY, WEEKLY, MONTHLY
+    next_payment_date = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def is_active(self):
@@ -35,6 +38,7 @@ class PesapalOrder(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=50, default="PENDING")  # PENDING, COMPLETED, FAILED
     checkout_url = models.URLField(blank=True, null=True)
+    is_recurring = models.BooleanField(default=False)  # new
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
