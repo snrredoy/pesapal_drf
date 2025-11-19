@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -139,4 +140,4 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:8000",
     "https://*.ngrok-free.app",
 ]
-CORS_ALLOWED_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
