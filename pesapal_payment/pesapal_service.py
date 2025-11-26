@@ -128,14 +128,14 @@ def submit_order_recurring(merchant_reference, amount, email, phone, description
     payload = {
         "id": merchant_reference,
         "amount": float(amount),
-        "currency": "KES",
+        "currency": "UGX",
         "description": description,
         "callback_url": settings.PESAPAL_CALLBACK_URL,
         "notification_id": notification_id,
         "billing_address": {
             "email_address": email,
             "phone_number": phone,
-            "country_code": "KE",
+            "country_code": "UG",
             "first_name": "Customer",
             "last_name": "User"
         },
